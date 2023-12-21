@@ -9,21 +9,21 @@ export default function SignUp() {
           type="text"
           placeholder="username"
           className="border p-3 rounded-lg "
-          id="username"
+          id="username"onChange={handleChange}
         />
 
         <input
           type="email"
           placeholder="email"
           className="border p-3 rounded-lg "
-          id="username"
+          id="username"onChange={handleChange}
         />
 
         <input
           type="password"
           placeholder="password"
           className="border p-3 rounded-lg "
-          id="password"
+          id="password"onChange={handleChange}
         />
 
         <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80 ">Sign Up</button>
