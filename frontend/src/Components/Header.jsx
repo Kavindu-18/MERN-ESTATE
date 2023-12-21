@@ -6,7 +6,7 @@ export default function Header() {
     <header className='bg-slate-200 shadow-md  mx-auto p-3'>
       <div className='flex justify-between items-center'>
         <Link to='/'>
-      <h1 className='font-bold text-sm sm:test-xl flex flex-wrap'>
+      <h1 className='font-bold text-sm sm:test-xl flex flex-wrap text'>
         <span className='text-slate-500'>Kavindu</span>
         <span className='text-slate-700'>ESTATE</span>
       </h1>
