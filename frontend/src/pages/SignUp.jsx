@@ -9,6 +9,8 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
     
     const res = await fetch("/api/auth/signup", {
       method: "POST",
@@ -19,7 +21,19 @@ export default function SignUp() {
     });
     const data = await res.json();
     console.log(data);
-  };
+    if (data.success === false) {
+      setLoading(false);
+      setError(data.message);
+      return;
+    }
+    setLoading(false);
+    setError(null);
+    navigate('/sign-in');
+  } catch (error) {
+    setLoading(false);
+    setError(error.message);
+  }
+};
 
   console.log(formData);
   return (
