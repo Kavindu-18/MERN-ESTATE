@@ -4,7 +4,7 @@ import {errorHandler} from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
 
-
+//signup function
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -33,4 +33,17 @@ export const signin = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+//google signin function  
+export const googleSignin = async (req, res, next) => {
+
+  try{
+    const user = await User.findone
+
+  }catch(error){
+    next(error);
+  }
+
+
 };
