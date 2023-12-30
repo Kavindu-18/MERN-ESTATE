@@ -62,8 +62,6 @@ export const googleSignin = async (req, res, next) => {
         .status(200)
         .json(rest);
         
-      
-
     }
 
   }catch(error){
