@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
-import { useRef } from "react";
+import { useRef,useState,useEffect } from "react";
+import {getStorage} from "firebase/storage"
+
 
 
 
@@ -24,12 +26,25 @@ export default function Profile() {
   // Profile page
   const fileRef = useRef(null); // reference to file input
   const { currentUser } = useSelector((state) => state.user);
+  const [file, setFile] = useState(undefined); // file to be uploaded
+  console.log(file);
+
+  useEffect(() => {
+    if (file) {
+      handleFileUpload(file);
+    }
+  }, [file]);
+
+  const handleFileUpload = async (file) => {
+
+    const storage  = getStorage();
+  }
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
 
       <form className="flex flex-col gap-4">
-        <input type="file" ref={fileRef} hidden accept="image/*"></input>
+        <input onChange={(e)=>setFile(e.target.files[0])}  type="file" ref={fileRef} hidden accept="image/*"></input>
         <img
           onClick={() => fileRef.current.click()}// when clicked, click the file input
           src={currentUser.profilePicture}
