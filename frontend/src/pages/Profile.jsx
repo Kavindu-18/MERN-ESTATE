@@ -9,6 +9,7 @@ import {
 import { app } from "../../firebase";
 
 //firebase code for allow photo
+
 // rules_version = '2';
 
 // // Craft rules based on data in your Firestore database
@@ -77,7 +78,7 @@ export default function Profile() {
           type="file"
           ref={fileRef}
           hidden
-          accept="image/*"
+          accept="image/*" 
         ></input>
         <img
           onClick={() => fileRef.current.click()} // when clicked, click the file input
