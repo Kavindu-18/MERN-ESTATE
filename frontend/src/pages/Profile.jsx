@@ -35,7 +35,7 @@ import { useDispatch } from "react-redux";
 export default function Profile() {
   // Profile page
   const fileRef = useRef(null); // reference to file input
-  const { currentUser,loading,error } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined); // file to be uploaded
   const [filePerc, setFilePerc] = useState(0); // file upload percentage
   const [fileUploadError, setFileUploadError] = useState(false); // file upload error
@@ -44,7 +44,7 @@ export default function Profile() {
   const dispatch = useDispatch();
 
   //console.log(formData);
- // console.log(filePerc);
+  // console.log(filePerc);
   //console.log(fileUploadError);
   useEffect(() => {
     if (file) {
@@ -87,9 +87,9 @@ export default function Profile() {
     try {
       dispatch(updateUserStart());
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -161,8 +161,11 @@ export default function Profile() {
           onChange={handleChange}
         ></input>
 
-        <button disabled={loading}  className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80">
-        {loading ? 'Loading...' : 'Update'}
+        <button
+          disabled={loading}
+          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80"
+        >
+          {loading ? "Loading..." : "Update"}
         </button>
       </form>
 
@@ -171,9 +174,9 @@ export default function Profile() {
         <span className="text-red-700 cursor-pointer ">Sign Out</span>
       </div>
 
-      <p className='text-red-700 mt-5'>{error ? error : ''}</p>
-      <p className='text-green-700 mt-5'>
-        {updateSuccess ? 'User is updated successfully!' : ''}
+      <p className="text-red-700 mt-5">{error ? error : ""}</p>
+      <p className="text-green-700 mt-5">
+        {updateSuccess ? "User is updated successfully!" : ""}
       </p>
     </div>
   );
