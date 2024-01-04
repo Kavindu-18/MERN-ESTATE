@@ -40,6 +40,7 @@ export default function Profile() {
   const [filePerc, setFilePerc] = useState(0); // file upload percentage
   const [fileUploadError, setFileUploadError] = useState(false); // file upload error
   const [formData, setFormData] = useState({}); // form data
+  const [updateSuccess, setUpdateSuccess] = useState(false); // update success
   const dispatch = useDispatch();
 
   //console.log(formData);
@@ -169,6 +170,11 @@ export default function Profile() {
         <span className="text-red-700 cursor-pointer ">Delete Account</span>
         <span className="text-red-700 cursor-pointer ">Sign Out</span>
       </div>
+
+      <p className='text-red-700 mt-5'>{error ? error : ''}</p>
+      <p className='text-green-700 mt-5'>
+        {updateSuccess ? 'User is updated successfully!' : ''}
+      </p>
     </div>
   );
 }
