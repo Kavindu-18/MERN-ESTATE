@@ -14,6 +14,9 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signOutUserStart,
+  signOutUserFailure,
+  signOutUserSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 //{updateUserStart,updateUserSuccess,updateUserFailure}
@@ -108,20 +111,20 @@ export default function Profile() {
       dispatch(updateUserFailure(error.message));
     }
   };
-
+//delete user
   const handleDeleteUser = async () => {
     try {
-      dispatch(updateUserStart());
+      dispatch(deleteUserStart());//deleteUserStart
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
 
       });
       const data = await res.json();
       if(data.success === false){
-        dispatch(deleteUserFailure(data.message));
+        dispatch(deleteUserFailure(data.message));//deleteUserFailure
         return;
       }
-      dispatch(deleteUserSuccess(data));
+      dispatch(deleteUserSuccess(data));//deleteUserSuccess
 
     }catch(error){
       dispatch(deleteUserFailure(error.message));
@@ -129,6 +132,22 @@ export default function Profile() {
     }
 
   };
+//signout
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+    } catch (error) {
+      dispatch(signOutUserFailure(data.message));
+    }
+  };
+
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -195,7 +214,7 @@ export default function Profile() {
 
       <div className="flex justify-between mt-5">
         <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer ">Delete Account</span>
-        <span className="text-red-700 cursor-pointer ">Sign Out</span>
+        <span onClick={handleSignOut} className="text-red-700 cursor-pointer ">Sign Out</span>
       </div>
 
       <p className="text-red-700 mt-5">{error ? error : ""}</p>
