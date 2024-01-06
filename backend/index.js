@@ -2,8 +2,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import UserRoute from './routes/user-route.js';
 import authRoute from './routes/auth-route.js';
+import listingRoute from './routes/listing-route.js';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+
 
 
 dotenv.config();
@@ -24,8 +26,10 @@ app.listen(3000, () => {
     console.log('Server listening on port 3000');
     });
 
-app.use("/api/user",UserRoute);
-app.use("/api/auth",authRoute);
+app.use("/api/user",UserRoute);// Path: backend/routes/user-route.js
+app.use("/api/auth",authRoute);// Path: backend/routes/user-route.js
+app.use("/api/listing",listingRoute);// Path: backend/routes/user-route.js
+
 
 
 app.use((err, req, res, next) => {
