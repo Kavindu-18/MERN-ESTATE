@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function CreateListing() {
+  const [files, setFiles] = useState([]);
+  const handleImageSubmit = (e) => {  
+    e.preventDefault();
+  }
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <div className="text-3xl font-semibold text-center my-7">
@@ -129,13 +133,14 @@ export default function CreateListing() {
 
           <div className=" flex gap-4">
             <input
+              onChange={(e) => setFiles(e.target.files)}
               className="p-3 border border-gray-300 rounded w-full"
               type="file"
               id="images"
               accept="image/* "
               multiple
             />
-            <button className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80">
+            <button onClick={handleImageSubmit} className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80">
               Upload
             </button>
           </div>
