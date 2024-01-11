@@ -1,9 +1,48 @@
 import React, { useState } from "react";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import { app } from "../../firebase";
 
 export default function CreateListing() {
   const [files, setFiles] = useState([]);
+  const [formData, setFormData] = useState({
+    imageUrls: [],
+
+  });
   const handleImageSubmit = (e) => {  
-    e.preventDefault();
+    if(files.length > 0 && files.length < 7) {
+      const promises = [];
+
+      for (let i = 0; i < files.length; i++) {
+        promises.push(storeImage(files[i]));// store each image in storage
+      }
+      Promise.all(promises).then((urls) => {
+        setFormData({ ...formData, imageUrls: urls });// set the image urls in the form data
+      });
+
+    }
+  };
+
+  const storeImage = async (file) => {
+    return new Promise((resolve, reject) => {
+      const storage = getStorage(app);// get the storage reference
+      const fileName = new Date().getTime() + file.name; // create a unique name for the file
+      const storageRef = ref(fileName,storage)// create a reference to the file
+      const UploadTask = uploadBytesResumable(storageRef, file);// upload the file to storage
+      UploadTask.on(
+        "state_changed",
+        (error) => {
+          reject(error);
+
+        },
+        () => {
+          getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
+            resolve(downloadURL);// return the download url
+          }
+          );
+        }
+
+      )
+    });
   }
   return (
     <main className="p-3 max-w-4xl mx-auto">
@@ -140,7 +179,7 @@ export default function CreateListing() {
               accept="image/* "
               multiple
             />
-            <button onClick={handleImageSubmit} className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80">
+            <button type="button" onClick={handleImageSubmit} className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80">
               Upload
             </button>
           </div>
