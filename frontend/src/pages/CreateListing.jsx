@@ -215,14 +215,19 @@ export default function CreateListing() {
             formData.imageUrls.map((url, index) => (
               <div
                 key={url}
-                className='flex justify-between p-3 border items-center'
+                className="flex justify-between p-3 border items-center"
               >
                 <img
                   src={url}
-                  alt='listing image'
-                  className='w-20 h-20 object-contain rounded-lg'
+                  alt="listing image"
+                  className="w-20 h-20 object-contain rounded-lg"
                 />
-                <button >
+                <button
+                  type="button"
+                  disabled={uploading}
+                  onClick={handleImageSubmit}
+                  className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80"
+                >
                   Delete
                 </button>
               </div>
