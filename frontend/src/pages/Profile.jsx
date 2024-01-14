@@ -59,31 +59,30 @@ export default function Profile() {
     }
   }, [file]);
 
-  const handleFileUpload = async (file) => {
+  const handleFileUpload = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
-      "state_changed",
+      'state_changed',
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setFilePerc(Math.round(progress));
       },
-
       (error) => {
-        fileUploadError(true);
+        setFileUploadError(true);
       },
-
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setFormData({ ...formData, profilePicture: downloadURL });
-        });
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, profilePicture: downloadURL })
+        );
       }
     );
   };
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -158,22 +157,22 @@ export default function Profile() {
           accept="image/*"
         ></input>
         <img
-          onClick={() => fileRef.current.click()} // when clicked, click the file input
+          onClick={() => fileRef.current.click()}
           src={formData.profilePicture || currentUser.profilePicture}
-          alt="profile"
-          className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
-        ></img>
-        <p className="text-sm self-center">
+          alt='profile'
+          className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
+        />
+        <p className='text-sm self-center'>
           {fileUploadError ? (
-            <span className="text-red-700">
+            <span className='text-red-700'>
               Error Image upload (image must be less than 2 mb)
             </span>
           ) : filePerc > 0 && filePerc < 100 ? (
-            <span className="text-slate-700">{`Uploading ${filePerc}%`}</span>
+            <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
           ) : filePerc === 100 ? (
-            <span className="text-green-700">Image successfully uploaded!</span>
+            <span className='text-green-700'>Image successfully uploaded!</span>
           ) : (
-            ""
+            ''
           )}
         </p>
         <input

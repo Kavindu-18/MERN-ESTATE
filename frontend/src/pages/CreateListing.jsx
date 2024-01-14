@@ -89,18 +89,22 @@ export default function CreateListing() {
   };
 
   const handleChange = (e) => {
-    if(e.target.id === 'sale' || e.target.id === 'rent'){
+    if (e.target.id === "sale" || e.target.id === "rent") {
       setFormData({
-        ...formData,// copy the form data
-        type: e.target.id// set the type to the id of the checkbox
-      })
+        ...formData, // copy the form data
+        type: e.target.id, // set the type to the id of the checkbox
+      });
     }
 
-    if(e.target.id === 'parking' || e.target.id === 'furnished' || e.target.id === 'offer'){
+    if (
+      e.target.id === "parking" ||
+      e.target.id === "furnished" ||
+      e.target.id === "offer"
+    ) {
       setFormData({
-        ...formData,// copy the form data
-        [e.target.id]: e.target.checked// set the type to the id of the checkbox
-      })
+        ...formData, // copy the form data
+        [e.target.id]: e.target.checked, // set the type to the id of the checkbox
+      });
     }
   };
 
